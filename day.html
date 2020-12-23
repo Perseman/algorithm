@@ -79,6 +79,28 @@
         right: { val: 7, left: null, right: null },
       },
     }));
+
+    /** 字符串中的第一个唯一字符
+     * @param {string} s
+     * @return {number}
+     */
+    var firstUniqChar = function (s) {
+      let hash = {}
+      let map = new Map()
+      for (let i = 0; i < s.length; i++) {
+        if (!hash[s[i]]) {
+          hash[s[i]] = 1
+          map.set(s[i], i)
+        } else {
+          map.delete(s[i])
+        }
+      }
+      if (map.size === 0) {
+        return -1
+      }
+      return map.values().next().value
+    };
+    console.log(firstUniqChar('loveleetcode'));
   </script>
 
 </body>
