@@ -57,15 +57,7 @@
       }
       return res
     };
-    console.log(maxDepth({
-      val: 3,
-      left: { val: 9 },
-      right: {
-        val: 20,
-        left: { val: 15, left: null, right: null },
-        right: { val: 7, left: null, right: null },
-      },
-    }));
+    console.log(maxDepth({ val: 3, left: { val: 9 }, right: { val: 20, left: { val: 15, left: null, right: null }, right: { val: 7, left: null, right: null }, }, }));
 
     /** 合并二叉树
      * @param {TreeNode} t1
@@ -85,6 +77,7 @@
       return tree
     };
     console.log(mergeTrees({ val: 1, left: { val: 3, left: { val: 5 } }, right: { val: 2 } }, { val: 2, left: { val: 1, right: { val: 4 } }, right: { val: 3, right: { val: 7 } } }));
+
     /** 相同的树
      * @param {TreeNode} p
      * @param {TreeNode} q
@@ -104,7 +97,45 @@
       }
       return traversal(p, q)
     };
-    console.log(isSameTree({ val: 1, left: { val: 3, left: { val: 5 } }, right: { val: 2 } }, { val: 1, left: { val: 3, left: { val: 5 } }, right: { val: 2 } }));
+    // console.log(isSameTree({ val: 1, left: { val: 3, left: { val: 5 } }, right: { val: 2 } }, { val: 1, left: { val: 3, left: { val: 5 } }, right: { val: 2 } }));
+
+    /** 对称二叉树
+     * @param {TreeNode} root
+     * @return {boolean}
+     */
+    var isSymmetric = function (root) {
+      if (!root) return true
+      function traversal(left, right) {
+        if (left == null && right == null) return true
+        if (left && right) {
+          return left.val === right.val && traversal(left.left, right.right) && traversal(left.right, right.left)
+        }
+        return false
+      }
+      return traversal(root.left, root.right)
+    };
+    console.log(isSymmetric({ val: 1, left: { val: 2, left: { val: 3 }, right: { val: 4 } }, right: { val: 2, left: { val: 4 }, right: { val: 3 } } }));
+
+    /** 二叉树的层序遍历 ||
+     * @param {TreeNode} root
+     * @return {number[][]}
+     */
+    var levelOrderBottom = function (root) {
+      if (!root) return []
+      let [que, res] = [[root], []]
+      while (que.length) {
+        let temp = { 'val': [], 'node': [] }
+        for (const node of que) {
+          temp.val.push(node.val)
+          node.left && temp.node.push(node.left)
+          node.right && temp.node.push(node.right)
+        }
+        res.push(temp.val)
+        que = temp.node
+      }
+      return res.reverse()
+    };
+    console.log(levelOrderBottom({ val: 0, left: { val: 9 }, right: { val: 20, left: { val: 15, left: null, right: null }, right: { val: 7, left: null, right: null }, }, }));
   </script>
 </body>
 
