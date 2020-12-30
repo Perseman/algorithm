@@ -136,6 +136,30 @@
       return res.reverse()
     };
     console.log(levelOrderBottom({ val: 0, left: { val: 9 }, right: { val: 20, left: { val: 15, left: null, right: null }, right: { val: 7, left: null, right: null }, }, }));
+
+    /** 将有序数组转换为二叉搜索树
+     * @param {number[]} nums
+     * @return {TreeNode}
+     */
+    var sortedArrayToBST = function (nums) {
+      if (nums.length === 0) return null
+      const mid = nums.length >>> 1
+      const root = new TreeNode(nums[mid])
+      root.left = sortedArrayToBST(nums.slice(0, mid))
+      root.right = sortedArrayToBST(nums.slice(mid + 1))
+      return root
+    };
+    console.log(sortedArrayToBST([-10, -3, 0, 5, 9]));
+
+    /** 平衡二叉树
+     * @param {TreeNode} root
+     * @return {boolean}
+     */
+    var isBalanced = function (root) {
+      if (!root) return true
+
+    };
+    console.log(isBalanced({ val: 3, left: { val: 9 }, right: { val: 20, left: { val: 15 }, right: { val: 7 } } }));
   </script>
 </body>
 
